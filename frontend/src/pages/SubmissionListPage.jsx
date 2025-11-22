@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getSubmissions, deleteSubmission } from "../api/submissions";
+import { getSubmissions, deleteSubmission } from "../api/tp";
 import useFetch from "../hooks/useFetch";
 import Card from "../components/Card";
 
@@ -19,7 +19,7 @@ export default function SubmissionListPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Submissions</h1>
+      <h1 className="text-2xl font-bold mb-4">Tugas Pendahuluan</h1>
       {loading && <Card>Loading...</Card>}
       {error && <Card>Error loading submissions</Card>}
 
@@ -29,10 +29,10 @@ export default function SubmissionListPage() {
             <div className="flex justify-between items-start">
               <div>
                 <div className="font-semibold">
-                  {s.student_name} — {s.status}
+                  {s.title} — {s.subtitle}
                 </div>
                 <div className="text-sm">
-                  Assignment ID: {s.assignment_id} • Grade: {s.grade || "-"}
+                  Assignment ID: {s.date} • Grade: {s.deadline || "-"}
                 </div>
                 <p className="text-sm mt-2">{s.description}</p>
                 <a

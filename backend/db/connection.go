@@ -20,7 +20,7 @@ func Connect() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	db.AutoMigrate(&models.Assignment{}, &models.Submission{})
+	db.AutoMigrate(&models.TP{})
 
 	DB = db
 	return DB, nil

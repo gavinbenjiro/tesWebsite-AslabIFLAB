@@ -10,20 +10,20 @@ function Navbar() {
     <nav className="bg-white shadow p-4">
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <Link to="/" className="font-bold">
-          Praktikum
+          Home
         </Link>
         <div className="space-x-4">
           <Link to="/" className="hover:underline">
-            Assignments
+            Tugas Pendahuluan
           </Link>
           <Link to="/submissions" className="hover:underline">
-            Submissions
+            Edit Tugas
           </Link>
           <Link
             to="/submissions/new"
             className="bg-blue-600 text-white px-3 py-1 rounded"
           >
-            New Submission
+            Tambah Tugas
           </Link>
         </div>
       </div>

@@ -1,28 +1,29 @@
 import React, { useState } from "react";
-import { createSubmission } from "../api/submissions";
+import { createSubmission } from "../api/tp";
 
 export default function SubmissionCreatePage() {
-  const [assignmentId, setAssignmentId] = useState("");
-  const [studentName, setStudentName] = useState("");
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [date, setDate] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!file) {
-      alert("Please attach a PDF");
-      return;
-    }
+
     const fd = new FormData();
-    fd.append("assignment_id", assignmentId);
-    fd.append("student_name", studentName);
-    fd.append("description", description);
-    fd.append("file", file);
+    fd.append("Title", title);
+    fd.append("Subtitle", subtitle);
+    fd.append("Date", date);
+    fd.append("Deadline", deadline);
+    fd.append("Category", category);
+    fd.append("Description", description);
 
     try {
       await createSubmission(fd);
       alert("Created");
-      window.location.href = "/submissions";
+      window.location.href = "/soaltugas";
     } catch (e) {
       console.error(e);
       alert("Create failed");
@@ -31,24 +32,48 @@ export default function SubmissionCreatePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">New Submission</h1>
+      <h1 className="text-2xl font-bold mb-4">Tambah Tugas Baru</h1>
       <form
         onSubmit={handleSubmit}
         className="space-y-4 bg-white p-4 rounded shadow"
       >
         <div>
-          <label className="block text-sm">Assignment ID</label>
+          <label className="block text-sm">Title</label>
           <input
-            value={assignmentId}
-            onChange={(e) => setAssignmentId(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             className="border p-2 w-full"
           />
         </div>
         <div>
-          <label className="block text-sm">Student Name</label>
+          <label className="block text-sm">Subtitle</label>
           <input
-            value={studentName}
-            onChange={(e) => setStudentName(e.target.value)}
+            value={subtitle}
+            onChange={(e) => setSubtitle(e.target.value)}
+            className="border p-2 w-full"
+          />
+        </div>
+        <div>
+          <label className="block text-sm">Date</label>
+          <input
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="border p-2 w-full"
+          />
+        </div>
+        <div>
+          <label className="block text-sm">Deadline</label>
+          <input
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+            className="border p-2 w-full"
+          />
+        </div>
+        <div>
+          <label className="block text-sm">Category</label>
+          <input
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             className="border p-2 w-full"
           />
         </div>
@@ -58,14 +83,6 @@ export default function SubmissionCreatePage() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="border p-2 w-full"
-          />
-        </div>
-        <div>
-          <label className="block text-sm">PDF File</label>
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={(e) => setFile(e.target.files[0])}
           />
         </div>
         <div>

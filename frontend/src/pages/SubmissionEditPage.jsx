@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getSubmission, patchSubmission } from "../api/submissions";
+import { getSubmission, patchSubmission } from "../api/tp";
 
 export default function SubmissionEditPage() {
   const { id } = useParams();
-  const [submission, setSubmission] = useState(null);
-  const [grade, setGrade] = useState("");
-  const [status, setStatus] = useState("");
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     getSubmission(id).then((res) => {
-      setSubmission(res.data);
-      setGrade(res.data.grade || "");
-      setStatus(res.data.status || "");
+      setTitle(res.data.title);
+      setSubtitle(res.data.subtitle);
+      setDeadline(res.data.deadline);
+      setCategory(res.data.category);
+      setDescription(res.data.description);
     });
   }, [id]);
 
   const handlePatch = async (e) => {
     e.preventDefault();
     try {
-      await patchSubmission(id, { grade, status });
+      await patchSubmission(id, {
+        title,
+        subtitle,
+        deadline,
+        category,
+        description,
+      });
       alert("Updated");
-      window.location.href = "/submissions";
+      window.location.href = "/soaltugas";
     } catch (e) {
       alert("Update failed");
     }
